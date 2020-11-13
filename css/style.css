@@ -278,7 +278,7 @@ body {
     filter: brightness(0.8);
 }
 .login-signup{
-    background-color: #fa8c16;
+    background-color: #f5ede4;
     border: none;
     border-radius: 2px;
     text-transform: uppercase;
@@ -297,15 +297,16 @@ body {
     background-color: #fafafa;
     border: 1px solid #e8e8e8;
     padding: 15px 25px;
+}
+.user-container{
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
-
 .user-info {
     display: flex;
     align-items: center;
     text-decoration: none;
+    margin-right: auto;
 }
 
 .user-avatar {
@@ -319,13 +320,51 @@ body {
     line-height: 24px;
     color: #595959;
 }
-
-.icon-exit {
+.edit{
+    margin-right: 10px;
+}
+.icon-edit{
+    width: 20px;
+    height: 20px;
+}
+.icon-exit  {
     width: 20px;
     height: 20px;
     fill: #000;
 }
+.edit-title{
+font-size: 20px;
+margin-bottom: 0;
 
+}
+.edit-container{
+    display: none;
+}
+.edit-container.visiable{
+    display: block;
+}
+.edit-label{
+    display: block;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.edit-input{
+    width: 100%;
+    margin: 0 auto;
+    padding: 5px 10px;
+}
+.edit-btn{
+    width: 100%;
+    background: #faad14;
+    border-radius: 4px;
+    border: none;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: normal;
+    font-size: 16px;
+    padding: 7px;
+    cursor: pointer;
+}
 .sidebar-nav {
     display: none;
     background-color: #fff;

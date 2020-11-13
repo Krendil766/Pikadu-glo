@@ -16,19 +16,27 @@ const emailInput = document.querySelector('.login-email');
 const passwordInput = document.querySelector('.login-password');
 const loginSignup = document.querySelector('.login-signup');
 const userElem = document.querySelector('.user');
-const userNameElem = document.querySelector('.user-name')
+const userNameElem = document.querySelector('.user-name');
+const userAvatarElem = document.querySelector('.user-avatar');
+const editElem = document.querySelector('.icon-edit');
+const editContainer = document.querySelector('.edit-container');
+const exitElem = document.querySelector('.exit');
+const editUserName = document.querySelector('.edit-username');
+const editPhotoUrl = document.querySelector('.edit-photo');
+const editBtn = document.querySelector('.edit-btn')
+
 
 
 
 const listUsers = [
   {
     email: 'krendilek766@gmail.com',
-    password: '74321',
+    password: '74321Krendil',
     displayName: 'krendil'
   },
   {
     email: 'tatyanapopko@gmail.com',
-    password: '05082018',
+    password: '05082018Krendil',
     displayName: 'tatyana'
   },
 ];
@@ -45,19 +53,29 @@ const setUser = {
     }
     console.log(user);
   },
-  logOut(){
+  logOut(handler){
+    this.user=null;
+    handler();
   },
   signUp(email, password, handler){
     if(!this.getUser(email)){
       let user = {email, password, displayName: showName(email)};
       listUsers.push(user);
       this.authorizedUser(user);
-      console.log(user);
       handler();
     }else {
       alert ('A user with this email is registered')
     }
     console.log(listUsers);
+  },
+  editUser(userName, userPhoto='', handler){
+    if(userName){
+      this.user.displayName = userName;
+    };
+    if(userPhoto){
+      this.user.photo = userPhoto;
+    };
+    handler();
   },
   getUser(email){
     return listUsers.find(item => {
@@ -76,6 +94,7 @@ const toggleAuthDom = ()=>{
     loginElem.style.display = 'none';
     userElem.style.display = "";
     userNameElem.textContent = user.displayName;
+    userAvatarElem.src = user.photo || userAvatarElem.src;
   }else{
     loginElem.style.display = '';
     userElem.style.display = "none";
@@ -103,8 +122,10 @@ const showName = (email)=>{
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   if(validEmail(emailInput.value) && validPassword(passwordInput.value)){
-    setUser.logIn(emailInput.value, ppasswordInput.value, toggleAuthDom);
+    setUser.logIn(emailInput.value, passwordInput.value, toggleAuthDom);
+    loginForm.reset();
   }
+
 
 });
 loginSignup.addEventListener('click', (e) => {
@@ -117,8 +138,26 @@ loginSignup.addEventListener('click', (e) => {
     setTimeout(()=>{
       emailInput.style.border = '';
       passwordInput.style.border = '';
-    },1500)
+      loginForm.reset();
+    },1000);
   }
+});
+
+editElem.addEventListener('click', (e)=>{
+  e.preventDefault();
+editContainer.classList.toggle ('visiable')
+editUserName.value = setUser.user.displayName;
+});
+
+exitElem.addEventListener('click', (e)=>{
+  e.preventDefault();
+  setUser.logOut(toggleAuthDom);
+});
+
+editBtn.addEventListener('click',(e)=>{
+  e.preventDefault();
+  setUser.editUser(editUserName.value, editPhotoUrl.value, toggleAuthDom);
+  editContainer.classList.remove('visiable')
 });
 
 toggleAuthDom();
