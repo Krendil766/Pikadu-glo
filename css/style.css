@@ -111,7 +111,12 @@ body {
     justify-content: space-between;
 }
 
-.posts {
+.posts{
+    display: none;
+
+}
+.posts.visiable {
+    display: block;
     width: 67%;
 }
 
@@ -511,8 +516,13 @@ margin-bottom: 0;
 }
 
 .add-post {
-    display: flex;
+    display: none;
     flex-direction: column;
+    width: 67%;
+
+}
+.add-post.visiable {
+    display: flex;
 }
 
 .add-title,
@@ -521,10 +531,18 @@ margin-bottom: 0;
     border: 1px solid #e8e8e8;
     padding: 23px 30px;
     margin-bottom: 16px;
+    resize: none;
 }
 
 .add-text {
     min-height: 362px;
+}
+
+.add-tags{
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    padding: 23px 30px;
+    margin-bottom: 16px;
 }
 
 .add-button {
@@ -581,9 +599,6 @@ margin-bottom: 0;
     }
     .sidebar.visible {
         transform: translateX(0);
-    }
-    .posts {
-        width: 100%;
     }
     .header-nav {
         display: none;
