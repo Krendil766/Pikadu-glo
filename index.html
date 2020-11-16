@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="css/normalize.css">
     <!-- Подключаем стили -->
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-database.js"></script>
     <script src="js/main.js" defer></script>
 </head>
 
@@ -63,17 +66,13 @@
                 </button>
             </div>
         </form>
-            <!-- form -->
+        <!-- form -->
         <aside class="sidebar">
             <div class="login">
                 <form class="login-form">
                     <h2 class="login-title">Авторизация</h2>
-                    <input type="email" class="login-input login-email"
-                        name="email" minlength="3"
-                        placeholder="Email" required>
-                    <input type="password" class="login-input login-password"
-                        name="password" minlength="3"
-                        placeholder="Password" required>
+                    <input type="email" class="login-input login-email" name="email" minlength="3" placeholder="Email" required>
+                    <input type="password" class="login-input login-password" name="password" minlength="3" placeholder="Password" required>
                     <a href="#" class="login-forget">Забыли пароль?</a>
                     <div class="login-sign">
                         <button class="login-signin" type="submit">Войти</button>
@@ -83,31 +82,31 @@
             </div>
             <div class="user">
                 <div class="user-container">
-                <a href="#" class="user-info">
-                    <img width="40" height="40" src="img/avatar.jpeg" alt="photo: user" class="user-avatar">
-                    <span class="user-name"></span>
-                </a>
-                <a href="#" class="edit">
-                    <img class="icon icon-edit" src="img/edit-button.svg"></a>
-                </a>
-                <a href="#" class="exit">
-                    <svg class="icon icon-exit">
+                    <a href="#" class="user-info">
+                        <img width="40" height="40" src="img/avatar.jpeg" alt="photo: user" class="user-avatar">
+                        <span class="user-name"></span>
+                    </a>
+                    <a href="#" class="edit">
+                        <img class="icon icon-edit" src="img/edit-button.svg"></a>
+                    </a>
+                    <a href="#" class="exit">
+                        <svg class="icon icon-exit">
                         <use xlink:href="img/icons.svg#exit"></use>
                     </svg>
-                </a>
+                    </a>
                 </div>
                 <form class="edit-container">
                     <h2 class="edit-title">Edit</h2>
-                        <label class="edit-label">Login
+                    <label class="edit-label">Login
                             <input type="text" class="edit-input edit-username"
                                     name="username" minlength="3" placeholder="Login"
                                     required>
                         </label>
-                        <label class="edit-label">Photo
+                    <label class="edit-label">Photo
                             <input type="text" class="edit-input edit-photo"
                                     name="username" placeholder="URL-photo">
                         </label>
-                        <button class="edit-btn">Save</button>
+                    <button class="edit-btn">Save</button>
                 </form>
             </div>
             <!-- /.user -->
