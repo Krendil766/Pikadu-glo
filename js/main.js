@@ -54,12 +54,31 @@
                  this.user = null;
              }
              if (handler) {
-                 handler;
+                 handler();
              }
          });
      },
      logIn(email, password, handler) {
-         const user = this.getUser(email);
+         firebase.auth().signInWithEmailAndPassword(email, password)
+             .then(data => {
+                 console.log(data);
+             })
+             .catch(err => {
+                 const errorCode = err.code;
+                 const errorMessage = err.message;
+                 if (errorCode === 'auth/wrong-password') {
+                     console.log(errorMessage);
+                     alert('Wrong password')
+                 } else if (errorCode === 'auth/user-not-found') {
+                     console.log(errorMessage);
+                     alert('No such user')
+                 } else {
+                     alert(errorMessage)
+                 }
+                 console.log(err);
+             });
+
+         /* const user = this.getUser(email);
          if (user && user.password === password) {
              this.authorizedUser(user);
              if (handler) {
@@ -67,13 +86,15 @@
              };
          } else {
              alert('A user with this email is no autorized')
-         };
+         }; */
      },
-     logOut(handler) {
-         this.user = null;
-         if (handler) {
-             handler();
-         };
+     logOut() {
+         firebase.auth().signOut();
+
+         /*  this.user = null;
+          if  (handler) {
+              handler();
+          }; */
      },
      signUp(email, password, handler) {
          firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -106,16 +127,21 @@
                alert('A user with this email is registered')
            } */
      },
-     editUser(userName, userPhoto = '', handler) {
-         if (handler) {
-             handler();
-         };
-         if (userName) {
-             this.user.displayName = userName;
+     editUser(displayName, photoURL, handler) {
+         const user = firebase.auth().currentUser;
+         if (displayName) {
+             if (photoURL) {
+                 user.updateProfile({
+                     displayName,
+                     photoURL
+                 })
+             } else {
+                 user.updateProfile({
+                     displayName
+                 });
+             }
          }
-         if (userPhoto) {
-             this.user.photo = userPhoto;
-         }
+         handler();
      },
      getUser(email) {
          return listUsers.find(item => {
@@ -186,15 +212,15 @@
      postsWarapper.classList.remove('visiable');
  }
 
- const validEmail = (str) => {
-     const regName = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-     return regName.test(str);
- }
+ /*  const validEmail = (str) => {
+      const regName = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return regName.test(str);
+  }
 
- const validPassword = (str) => {
-     const regPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
-     return regPassword.test(str);
- }
+  const validPassword = (str) => {
+      const regPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
+      return regPassword.test(str);
+  } */
 
  const showName = (email) => {
      for (let i = 0; i < email.length; i++) {
@@ -265,7 +291,7 @@
 
      loginForm.addEventListener('submit', (e) => {
          e.preventDefault();
-         if (validEmail(emailInput.value) && validPassword(passwordInput.value)) {
+         if (emailInput.value && passwordInput.value) {
              setUser.logIn(emailInput.value, passwordInput.value, toggleAuthDom);
              loginForm.reset();
          }
@@ -273,7 +299,7 @@
 
      loginSignup.addEventListener('click', (e) => {
          e.preventDefault();
-         if (validEmail(emailInput.value) && validPassword(passwordInput.value)) {
+         if (emailInput.value && passwordInput.value) {
              setUser.signUp(emailInput.value, passwordInput.value, toggleAuthDom);
          } else {
              emailInput.style.border = '2px solid red';
